@@ -9,27 +9,8 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Main extends BaseController
 {
-    public function index()
+    public function login()
     {
-        // echo "Hello world!";
-
-        $model_usuarios = new UsuariosModel();
-        $usuarios = $model_usuarios->findAll();
-
-        // dd($usuarios);
-        // ou
-        echo '<pre>';
-        print_r($usuarios);
-
-
-        //tasks
-        $model_tasks = new TasksModel();
-        $tasks = $model_tasks->findAll();
-
-
-        //dd($tasks);
-        //ou
-        echo '<pre>';
-        print_r($tasks);
+        return view('login_frm');
     }
 }

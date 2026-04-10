@@ -1,0 +1,170 @@
+<?php
+
+namespace App\Controllers;
+
+use App\Controllers\BaseController;
+use App\Models\FuncionarioMOdel;
+use App\Models\CargoModel;
+use CodeIgniter\HTTP\ResponseInterface;
+
+/**
+ * Controller responsável por gerenciar os funcionários
+ * (CRUD + relacionamento com cargos)
+ */
+
+class Funcionarios extends BaseController
+{
+    //instância do model de funcionários e de cargos
+    protected $funcionarioModel;
+    protected $cargoModel;
+
+
+    // construtor: inicializa os models necessários
+    public function __construct()
+    {
+        $this->funcionarioModel = new FuncionarioModel(); // para mexer na tabela de funcionários
+        $this->cargoModel = new CargoModel(); // para buscar os cargos
+    }
+
+
+    //lista todos os funcionários com a descrição do cargo (JOIN)
+    public function index()
+    {
+        // Busca funcionários com o nome do cargo vinculado
+        $funcionarios = $this->funcionarioModel
+            // esse JOIN serve para trazer os dados do funcionário e a descrição do cargo, porque na tela eu não quero mostrar só o fun_CBOID, quero mostrar o nome do cargo.
+            ->select('tbl_funcionario.*, tbl_cargo.cbo_descricao')
+            ->join('tbl_cargo', 'tbl_cargo.CBOID = tbl_funcionario.fun_CBOID', 'left')
+            ->findAll();
+
+        $data = [
+            'titulo' => 'Lista de Funcionários',
+            'funcionarios' => $funcionarios
+        ];
+
+        return view('funcionarios/index', $data);
+    }
+
+    public function new() // abrir tela de cadastro, envia o titulo e envia também a lista de cargos
+    {
+        $data = [
+            'titulo' => 'Novo Funcionário',
+            'cargos' => $this->cargoModel->findAll() //essa parte, traz todos os cargos do banco para você usar no select da view 
+        ];
+
+        return view('funcionarios/new', $data);
+    }
+
+
+    public function create() // esse metodo recebe os dados enviados pelo formulario, valida e salva no banco depois redireciona para a listagem 
+    {
+        $regras = [
+            'fun_codigo' => 'required',
+            'fun_cpf' => 'required|max_length[11]',
+            'fun_nome_completo' => 'required|max_length[150]',
+            'fun_CBOID' => 'required',
+            'fun_flg_status' => 'required',
+            // aqui são todos os campos que são obrigatórios código, cpf, nome, cargo e status.
+        ];
+
+        if (! $this->validate($regras)) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
+            // se der erro na validação volta para o formulario, mantém os dados que foi digitado e manda os erros pra tela 
+        }
+
+        $this->funcionarioModel->insert([ // aqui ele pega os valores do formulario, como fun_codigo e também grava as datas de cadastro e alteração.
+            'fun_codigo' => $this->request->getPost('fun_codigo'),
+            'fun_cpf' => $this->request->getPost('fun_cpf'),
+            'fun_nome_completo' => $this->request->getPost('fun_nome_completo'),
+            'fun_CBOID' => $this->request->getPost('fun_CBOID'),
+            'fun_flg_status' => $this->request->getPost('fun_flg_status'),
+            'fun_data_cadastro' => date('Y-m-d H:i:s'),
+            'fun_data_ultima_alteracao' => date('Y-m-d H:i:s'),
+        ]);
+
+        return redirect()->to('/funcionarios')->with('sucesso', 'Funcionario cadastrado com sucesso.');
+    }
+
+    // busca o funcionário pelo ID, busca todos os cargos e mata tudo para a view de edição 
+    public function edit($id)
+    {
+
+        $funcionario = $this->funcionarioModel->find($id);
+
+        // se não existir, retorna erro 404
+        if (!$funcionario) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Funcionário não encontrado.');
+        }
+
+        $data = [
+            'titulo' => 'Editar Funcionário',
+            'funcionario' => $funcionario,
+            'cargos' => $this->cargoModel->findAll() // necessário para editar o cargo
+        ];
+
+        return view('funcionarios/edit', $data);
+    }
+
+    //atualiza um funcionário existente
+    public function update($id)
+    {
+        //verifica se o funcionário existe 
+        $funcionario = $this->funcionarioModel->find($id);
+
+        if (!$funcionario) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Funcionário não encontrado.');
+            // se o funcionario não for existente, erro na tela 
+        }
+
+        //regras de validação
+        $regras = [
+            'fun_codigo' => 'required',
+            'fun_cpf' => 'required|max_length[11]',
+            'fun_nome_completo' => 'required|max_length[150]',
+            'fun_CBOID' => 'required',
+            'fun_flg_status' => 'required',
+        ];
+
+
+        if (!$this->validate($regras)) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
+            // se falhar, retorna com erros 
+        }
+
+
+        $this->funcionarioModel->update($id, [
+            'fun_codigo' => $this->request->getPost('fun_codigo'),
+            'fun_cpf' => $this->request->getPost('fun_cpf'),
+            'fun_nome_completo' => $this->request->getPost('fun_nome_completo'),
+            'fun_CBOID' => $this->request->getPost('fun_CBOID'),
+            'fun_flg_status' => $this->request->getPost('fun_flg_status'),
+            'fun_data_ultima_alteracao' => date('Y-m-d H:i:s'),
+        ]); // envia pro banco e muda a data da ultima alteração
+
+        return redirect()->to('/funcionarios')
+            ->with('sucesso', 'Funcionário atualizado com sucesso.');
+    }
+
+
+    //Remove um funcionário do banco
+    public function delete($id)
+    {
+        //verifica se existe antes de excluir
+        $funcionario = $this->funcionarioModel->find($id);
+
+        if (!$funcionario) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Funcionário não encontrado.');
+        }
+
+        // Exclui o registro
+        $this->funcionarioModel->delete($id);
+
+        return redirect()->to('/funcionarios')->with('sucesso', 'Funcionário excluído com sucesso.');
+    }
+}
