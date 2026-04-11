@@ -11,7 +11,7 @@ use CodeIgniter\HTTP\ResponseInterface;
  * (CRUD: listar, criar, editar, atualizar e excluir)
  */
 
-class Cargos extends BaseController
+class CargosController extends BaseController
 {
     /**
      * Instância do model de cargos
@@ -26,7 +26,7 @@ class Cargos extends BaseController
     public function index() // busca todos os cargos e manda para view.
     {
         $data = [
-            'titulo' => 'Lista de cargos',
+            'titulo' => 'Cargos',
             'cargos' => $this->cargoModel->findAll()
         ];
 
@@ -47,8 +47,15 @@ class Cargos extends BaseController
     public function create()
     {
         $regras = [
-            'cbo_codigo' => 'required|max_length[6]',
-            'cbo_descricao' => 'required|max_length[150]',
+
+            'cbo_codigo' => [
+                'label' => 'CBO',
+                'rules' => 'required|max_length[6]'
+            ],
+            'cbo_descricao' => [
+                'label' => 'Descrição',
+                'rules' => 'required|max_length[150]'
+            ],
         ];
 
         if (! $this->validate($regras)) {
@@ -106,8 +113,14 @@ class Cargos extends BaseController
 
         // Regras de validação
         $regras = [
-            'cbo_codigo' => 'required|max_length[6]',
-            'cbo_descricao' => 'required|max_length[150]',
+            'cbo_codigo' => [
+                'label' => 'CBO',
+                'rules' => 'required|max_length[6]'
+            ],
+            'cbo_descricao' => [
+                'label' => 'Descrição',
+                'rules' => 'required|max_length[150]'
+            ],
         ];
 
         // Se falhar, volta para o formulário com erros

@@ -12,7 +12,7 @@ use CodeIgniter\HTTP\ResponseInterface;
  * (CRUD + relacionamento com cargos)
  */
 
-class Funcionarios extends BaseController
+class FuncionariosController extends BaseController
 {
     //instância do model de funcionários e de cargos
     protected $funcionarioModel;
@@ -61,7 +61,10 @@ class Funcionarios extends BaseController
         $regras = [
             'fun_codigo' => 'required',
             'fun_cpf' => 'required|max_length[11]',
-            'fun_nome_completo' => 'required|max_length[150]',
+            'fun_nome_completo' => [
+                'label' => 'Nome Completo',
+                'rules' => 'required'
+            ],
             'fun_CBOID' => 'required',
             'fun_flg_status' => 'required',
             // aqui são todos os campos que são obrigatórios código, cpf, nome, cargo e status.
