@@ -33,7 +33,7 @@ class FuncionariosController extends BaseController
         // Busca funcionários com o nome do cargo vinculado
         $funcionarios = $this->funcionarioModel
             // esse JOIN serve para trazer os dados do funcionário e a descrição do cargo, porque na tela eu não quero mostrar só o fun_CBOID, quero mostrar o nome do cargo.
-            ->select('tbl_funcionario.*, tbl_cargo.cbo_descricao')
+            ->select('tbl_funcionario.*, tbl_cargo.cbo_codigo, tbl_cargo.cbo_descricao')
             ->join('tbl_cargo', 'tbl_cargo.CBOID = tbl_funcionario.fun_CBOID', 'left')
             ->findAll();
 
@@ -59,14 +59,28 @@ class FuncionariosController extends BaseController
     public function create() // esse metodo recebe os dados enviados pelo formulario, valida e salva no banco depois redireciona para a listagem 
     {
         $regras = [
-            'fun_codigo' => 'required',
-            'fun_cpf' => 'required|max_length[11]',
+            'fun_codigo' => [
+                'label' => 'Código',
+                'rules' => 'required'
+            ],
+            'fun_cpf' => [
+                'label' => 'CPF',
+                'rules' => 'min_length[11]',
+                'required'
+            ],
             'fun_nome_completo' => [
                 'label' => 'Nome Completo',
                 'rules' => 'required'
             ],
-            'fun_CBOID' => 'required',
-            'fun_flg_status' => 'required',
+            'fun_CBOID' => [
+                'label' => 'Cargo',
+                'rules' => 'required'
+            ],
+            'fun_flg_status' => [
+                'label' => 'Status',
+                'rules' => 'required'
+            ],
+
             // aqui são todos os campos que são obrigatórios código, cpf, nome, cargo e status.
         ];
 
@@ -124,11 +138,27 @@ class FuncionariosController extends BaseController
 
         //regras de validação
         $regras = [
-            'fun_codigo' => 'required',
-            'fun_cpf' => 'required|max_length[11]',
-            'fun_nome_completo' => 'required|max_length[150]',
-            'fun_CBOID' => 'required',
-            'fun_flg_status' => 'required',
+            'fun_codigo' => [
+                'label' => 'Código',
+                'rules' => 'required'
+            ],
+            'fun_cpf' => [
+                'label' => 'CPF',
+                'rules' => 'min_length[11]',
+                'required'
+            ],
+            'fun_nome_completo' => [
+                'label' => 'Nome Completo',
+                'rules' => 'required'
+            ],
+            'fun_CBOID' => [
+                'label' => 'Cargo',
+                'rules' => 'required'
+            ],
+            'fun_flg_status' => [
+                'label' => 'Status',
+                'rules' => 'required'
+            ],
         ];
 
 

@@ -7,7 +7,7 @@ class DashboardController extends BaseController
     public function index()
     {
         $data = [
-            'titulo' => 'DashboardController'
+            'titulo' => 'Cadastro RH'
         ];
 
         return view('dashboard/index', $data);
