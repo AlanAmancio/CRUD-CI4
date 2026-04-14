@@ -1,61 +1,99 @@
-# CodeIgniter 4 Framework
+# 💻 Sistema de Cadastro - CodeIgniter 4
 
-## What is CodeIgniter?
+Projeto desenvolvido com foco em estudos, utilizando **PHP (CodeIgniter 4)** para construção de um sistema de cadastro de cargos e funcionários.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+---
 
-This repository holds the distributable version of the framework.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## 🚀 Sobre o projeto
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+Este projeto foi desenvolvido como parte do meu processo de aprendizado em desenvolvimento web, com o objetivo de praticar conceitos importantes como:
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+- Estrutura MVC
+- Criação de CRUD completo
+- Organização de código
+- Integração entre backend e frontend
+- Versionamento com Git e GitHub
 
-## Important Change with index.php
+⚠️ Este projeto ainda está em evolução e será aprimorado com novas funcionalidades futuramente.
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+---
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+## 🛠️ Tecnologias utilizadas
 
-**Please** read the user guide for a better explanation of how CI4 works!
+- PHP 8.2
+- CodeIgniter 4
+- Bootstrap 5
+- AdminLTE
+- DataTables
+- MySQL
 
-## Repository Management
+---
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+## 📋 Funcionalidades
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+- Cadastro de cargos
+- Edição e exclusão de cargos
+- Cadastro de funcionários
+- Edição e exclusão de funcionários
+- Relacionamento entre funcionários e cargos
+- Filtro de funcionários por status (Ativo/Inativo)
+- Tabela dinâmica com DataTables (busca, paginação e ordenação)
+- Formatação de dados (CPF, CBO)
+- Ofuscação de ID nas URLs
 
-## Contributing
+---
 
-We welcome contributions from the community.
+## 🎯 Aprendizados
 
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
+Durante o desenvolvimento deste projeto, pratiquei:
 
-## Server Requirements
+- Estruturação de controllers no CodeIgniter
+- Uso de Models e interação com banco de dados
+- Criação e organização de Views
+- Uso de Helpers para reutilização de código
+- Manipulação de rotas
+- Integração com bibliotecas JS (DataTables)
+- Boas práticas de versionamento com Git
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+---
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+## 🔐 Observações
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+- O sistema utiliza codificação de ID na URL para melhorar a legibilidade.
+- Não possui autenticação implementada (será adicionado futuramente).
+- Projeto focado em aprendizado e evolução contínua.
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+---
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+## 📸 Preview do sistema
+
+<img width="1914" height="1033" alt="image" src="https://github.com/user-attachments/assets/43da51ff-113c-43c7-8fe7-5d0f1670cfbe" />
+
+
+---
+
+## 🌐 Acesso
+
+Em breve disponível online.
+
+---
+
+## 📌 Status do projeto
+
+🚧 Em desenvolvimento  
+📚 Projeto de estudo  
+🔄 Em constante evolução  
+
+---
+
+## 👨‍💻 Autor
+
+Desenvolvido por **Alan Amancio**
+
+- GitHub: https://github.com/AlanAmancio
+
+---
+
+## ⭐ Considerações finais
+
+Este projeto representa minha evolução no desenvolvimento web e será continuamente melhorado conforme avanço nos estudos.
