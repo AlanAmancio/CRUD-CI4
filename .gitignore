@@ -1,5 +1,20 @@
+# Arquivos de ambiente
+.env
+
+# Dependências
 /vendor/
 /node_modules/
-/.env
+
+# Arquivos temporários do sistema
 /writable/
+
+# Uploads públicos
 /public/uploads/
+
+# IDE / editor
+.vscode/
+.vs/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
