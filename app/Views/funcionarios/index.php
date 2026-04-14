@@ -89,11 +89,11 @@
                             <!-- mostra ativo ou inativo conforme o valor salvo -->
 
                             <td>
-                                <a href="<?= base_url('funcionarios/edit/' . $funcionario['FuncionarioID']); ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i>
+                                <a href="<?= base_url('funcionarios/edit/' . encodeId($funcionario['FuncionarioID'])); ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i>
                                     Editar
                                 </a>
 
-                                <a href="<?= base_url('funcionarios/delete/' . $funcionario['FuncionarioID']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Deseja relamente excluir este funcionário?')"><i class="fas fa-trash"></i>
+                                <a href="<?= base_url('funcionarios/delete/' . encodeId($funcionario['FuncionarioID'])); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Deseja relamente excluir este funcionário?')"><i class="fas fa-trash"></i>
                                     Excluir
                                 </a>
                             </td>

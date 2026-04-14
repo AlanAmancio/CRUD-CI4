@@ -110,8 +110,10 @@ class FuncionariosController extends BaseController
     }
 
     // busca o funcionário pelo ID, busca todos os cargos e mata tudo para a view de edição 
-    public function edit($id)
+    public function edit($hash)
     {
+
+        $id = decodeId($hash);
 
         $funcionario = $this->funcionarioModel->find($id);
 
@@ -130,8 +132,10 @@ class FuncionariosController extends BaseController
     }
 
     //atualiza um funcionário existente
-    public function update($id)
+    public function update($hash)
     {
+
+        $id = decodeId($hash);
         //verifica se o funcionário existe 
         $funcionario = $this->funcionarioModel->find($id);
 
@@ -190,8 +194,9 @@ class FuncionariosController extends BaseController
 
 
     //Remove um funcionário do banco
-    public function delete($id)
+    public function delete($hash)
     {
+        $id = decodeId($hash);
         //verifica se existe antes de excluir
         $funcionario = $this->funcionarioModel->find($id);
 

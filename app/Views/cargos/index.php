@@ -55,12 +55,12 @@
                             <td><?= $cargo['cbo_descricao']; ?></td>
                             <!-- Mostra a descrição do cargo -->
                             <td>
-                                <a href="<?= base_url('cargos/edit/' . $cargo['CBOID']); ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i>
+                                <a href="<?= base_url('cargos/edit/' . encodeId($cargo['CBOID'])); ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i>
                                     Editar
                                 </a>
                                 <!-- botão que leva para /cargos/edit/ID -->
 
-                                <a href="<?= base_url('cargos/delete/' . $cargo['CBOID']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Deseja realmente excluir este cargo?')"><i class="fas fa-trash"></i>
+                                <a href="<?= base_url('cargos/delete/' . encodeId($cargo['CBOID'])); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Deseja realmente excluir este cargo?')"><i class="fas fa-trash"></i>
                                     Excluir
                                 </a>
                                 <!-- botão que chama /cargos/delete/ID e pede confirmação -->

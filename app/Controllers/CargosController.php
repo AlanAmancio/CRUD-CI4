@@ -81,8 +81,10 @@ class CargosController extends BaseController
      * Exibe o formulário de edição de um cargo
      */
 
-    public function edit($id)
+    public function edit($hash)
     {
+        $id = decodeId($hash);
+
         // Busca o cargo pelo ID
         $cargo = $this->cargoModel->find($id);
 
@@ -103,8 +105,10 @@ class CargosController extends BaseController
      * Atualiza um cargo existente
      */
 
-    public function update($id)
+    public function update($hash)
     {
+        $id = decodeId($hash);
+
         $cargo = $this->cargoModel->find($id);
 
         // Verifica se o cargo existe
@@ -145,8 +149,10 @@ class CargosController extends BaseController
      * Exclui um cargo do banco de dados
      */
 
-    public function delete($id)
+    public function delete($hash)
     {
+        $id = decodeId($hash);
+
         // Verifica se o cargo existe antes de excluir
         $cargo = $this->cargoModel->find($id);
 

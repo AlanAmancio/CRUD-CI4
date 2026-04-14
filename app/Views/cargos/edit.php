@@ -7,7 +7,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-tittle">Editar Cargo</h3>
+        <h3 class="card-tittle">Edição de Cargo</h3>
     </div>
 
 
@@ -26,7 +26,7 @@
             </div>
         <?php endif; ?>
 
-        <form action="<?= base_url('cargos/update/' . $cargo['CBOID']); ?>" method="post">
+        <form action="<?= base_url('cargos/update/' . encodeId($cargo['CBOID'])); ?>" method="post">
             <!-- Formulario que envia a rota  /cargos/update/ID -->
 
             <?= csrf_field() ?>

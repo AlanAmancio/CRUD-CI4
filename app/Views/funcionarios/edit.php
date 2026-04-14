@@ -6,7 +6,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-tittle">Editar Cargo</h3>
+        <h3 class="card-tittle">Edição de Funcionário</h3>
     </div>
 
     <section class="card-body">
@@ -25,7 +25,7 @@
         <?php endif; ?>
 
 
-        <form action="<?= base_url('funcionarios/update/' . $funcionario['FuncionarioID']); ?>" method="post">
+        <form action="<?= base_url('funcionarios/update/' . encodeId($funcionario['FuncionarioID'])); ?>" method="post">
             <!-- formulario que envia a rota /funcionarios/update/ID -->
 
             <?= csrf_field() ?>

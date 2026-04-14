@@ -33,3 +33,25 @@ if (!function_exists('statusFuncionario')) {
         return $status == 1 ? 'Ativo' : 'inativo';
     }
 }
+
+
+if (!function_exists('encodeId')) {
+    function encodeId($id)
+    {
+        return rtrim(strtr(base64_encode($id), '+/', '-_'), '=');
+    }
+}
+
+if (!function_exists('decodeId')) {
+    function decodeId($hash)
+    {
+        $base64 = strtr($hash, '-_', '+/');
+
+        $padding = strlen($base64) % 4;
+        if ($padding > 0) {
+            $base64 .= str_repeat('=', 4 - $padding);
+        }
+
+        return base64_decode($base64);
+    }
+}
