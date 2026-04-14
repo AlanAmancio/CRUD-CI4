@@ -99,7 +99,7 @@
             </div>
 
             <div class="mt-3">
-                <button type="submit" class="btn btn-sucess">Atualizar</button>
+                <button type="submit" class="btn btn-success">Atualizar</button>
                 <a href="<?= base_url('funcionarios'); ?>" class="btn btn-secondary">Voltar</a>
             </div>
         </form>

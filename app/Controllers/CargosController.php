@@ -25,6 +25,7 @@ class CargosController extends BaseController
 
     public function index() // busca todos os cargos e manda para view.
     {
+
         $data = [
             'titulo' => 'Cargos',
             'cargos' => $this->cargoModel->findAll()
@@ -133,7 +134,8 @@ class CargosController extends BaseController
 
         // Atualiza os dados no banco
         $this->cargoModel->update($id, [
-            'cbo_codigo' => $this->request->getPost('cbo_descricao'),
+            'cbo_codigo' => $this->request->getPost('cbo_codigo'),
+            'cbo_descricao' => $this->request->getPost('cbo_descricao'),
         ]);
 
         return redirect()->to('/cargos')->with('sucesso', 'Cargo atualizado com sucesso.');

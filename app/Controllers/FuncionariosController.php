@@ -30,20 +30,25 @@ class FuncionariosController extends BaseController
     //lista todos os funcionários com a descrição do cargo (JOIN)
     public function index()
     {
-        // Busca funcionários com o nome do cargo vinculado
-        $funcionarios = $this->funcionarioModel
-            // esse JOIN serve para trazer os dados do funcionário e a descrição do cargo, porque na tela eu não quero mostrar só o fun_CBOID, quero mostrar o nome do cargo.
+        $status = $this->request->getGet('status');
+
+        $query = $this->funcionarioModel
             ->select('tbl_funcionario.*, tbl_cargo.cbo_codigo, tbl_cargo.cbo_descricao')
-            ->join('tbl_cargo', 'tbl_cargo.CBOID = tbl_funcionario.fun_CBOID', 'left')
-            ->findAll();
+            ->join('tbl_cargo', 'tbl_cargo.CBOID = tbl_funcionario.fun_CBOID', 'left');
+
+        if ($status !== null && $status !== '') {
+            $query->where('tbl_funcionario.fun_flg_status', $status);
+        }
 
         $data = [
-            'titulo' => 'Lista de Funcionários',
-            'funcionarios' => $funcionarios
+            'titulo' => 'Lista de funcionários',
+            'funcionarios' => $query->findAll(),
+            'statusSelecionado' => $status
         ];
 
         return view('funcionarios/index', $data);
     }
+
 
     public function new() // abrir tela de cadastro, envia o titulo e envia também a lista de cargos
     {
@@ -65,8 +70,7 @@ class FuncionariosController extends BaseController
             ],
             'fun_cpf' => [
                 'label' => 'CPF',
-                'rules' => 'min_length[11]',
-                'required'
+                'rules' => 'min_length[11]|required'
             ],
             'fun_nome_completo' => [
                 'label' => 'Nome Completo',
@@ -102,7 +106,7 @@ class FuncionariosController extends BaseController
             'fun_data_ultima_alteracao' => date('Y-m-d H:i:s'),
         ]);
 
-        return redirect()->to('/funcionarios')->with('sucesso', 'Funcionario cadastrado com sucesso.');
+        return redirect()->to('/funcionarios')->with('sucesso', 'Funcionário cadastrado com sucesso.');
     }
 
     // busca o funcionário pelo ID, busca todos os cargos e mata tudo para a view de edição 

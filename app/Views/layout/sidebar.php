@@ -16,7 +16,7 @@
                 <li class="nav-item">
                     <a href="<?= base_url('/'); ?>" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
-                        <p>Dashboard</p>
+                        <p>Principal</p>
                     </a>
                 </li>
 
